@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'SimpleSync_Example' do
+  pod 'SimpleSync', :path => '../'
+
+  target 'SimpleSync_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
