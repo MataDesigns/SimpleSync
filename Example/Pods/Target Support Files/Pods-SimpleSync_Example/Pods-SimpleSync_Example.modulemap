@@ -1,0 +1,6 @@
+framework module Pods_SimpleSync_Example {
+  umbrella header "Pods-SimpleSync_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

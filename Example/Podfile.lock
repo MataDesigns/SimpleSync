@@ -1,0 +1,16 @@
+PODS:
+  - SimpleSync (0.1.0)
+
+DEPENDENCIES:
+  - SimpleSync (from `../`)
+
+EXTERNAL SOURCES:
+  SimpleSync:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  SimpleSync: ded5068c4a98b65b6593565035b3c44e49ba9692
+
+PODFILE CHECKSUM: 404f6df6ccb328ccd527d874fc491b88745af9b3
+
+COCOAPODS: 1.2.0.beta.1

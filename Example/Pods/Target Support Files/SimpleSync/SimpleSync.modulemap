@@ -1,0 +1,6 @@
+framework module SimpleSync {
+  umbrella header "SimpleSync-umbrella.h"
+
+  export *
+  module * { export * }
+}

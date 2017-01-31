@@ -1,0 +1,726 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5921BAC21BBC9601480A6A1FD754642D /* Pods-SimpleSync_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A081F51F81E64AC79004E3B97B9C453E /* Pods-SimpleSync_Tests-dummy.m */; };
+		69D2932836BF540B3431F792166EE24B /* SimpleSync-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B26319966CDC3710FF2B3B1EE6D518E /* SimpleSync-dummy.m */; };
+		7750DCFC92E49A53D20837BCD5988B06 /* Pods-SimpleSync_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 394F1DA4B6E82619425450684109984C /* Pods-SimpleSync_Example-dummy.m */; };
+		7D598E55D8265F6537ABB9F066957026 /* Pods-SimpleSync_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3195BEA2F9DE47D8C446B6D828726AE5 /* Pods-SimpleSync_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A11D4B861E3E6A450019C7CD /* SimpleSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11D4B841E3E69F70019C7CD /* SimpleSync.swift */; };
+		A11D4B881E3E6AB60019C7CD /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11D4B871E3E6AB60019C7CD /* CoreDataManager.swift */; };
+		B4039945E397C2CC6B2896F9CF8905F1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		CE911BC2BF481080F8F75EAA79F2A136 /* Pods-SimpleSync_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D384C6CF3FB9CD0EE7D9139F57A65B0 /* Pods-SimpleSync_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CEA3D2314708ED189CDA131CCEEA2EA4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		E43ED01EF0826E395AFF7818DA062324 /* SimpleSync-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AA00B62ACF76F38E491B466D980DDF7C /* SimpleSync-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F017A4E93F4DC1CFC61D8C6E6AD4BF61 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C0F1A23E654E744508299659159B5FDA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D0569F5F43507CC4D17DCA1316AFE2D3;
+			remoteInfo = SimpleSync;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		173377A0E28E0B2FF764B5D24928DC21 /* Pods-SimpleSync_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SimpleSync_Tests.modulemap"; sourceTree = "<group>"; };
+		1BB5BDC9EB65DD077204442A263EC4F1 /* Pods-SimpleSync_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SimpleSync_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		2B26319966CDC3710FF2B3B1EE6D518E /* SimpleSync-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SimpleSync-dummy.m"; sourceTree = "<group>"; };
+		3195BEA2F9DE47D8C446B6D828726AE5 /* Pods-SimpleSync_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SimpleSync_Tests-umbrella.h"; sourceTree = "<group>"; };
+		394F1DA4B6E82619425450684109984C /* Pods-SimpleSync_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SimpleSync_Example-dummy.m"; sourceTree = "<group>"; };
+		3D0AED9B5C2CBFE588F26ECB67F734CC /* SimpleSync.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimpleSync.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B914DE12445011D37E49D0A27FEBF24 /* Pods-SimpleSync_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SimpleSync_Tests-resources.sh"; sourceTree = "<group>"; };
+		5E95B53C98739A1085B2FF682D1A3663 /* Pods_SimpleSync_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleSync_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5EF46A693FADE9F05EEFC7B0C06BE154 /* Pods-SimpleSync_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SimpleSync_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		630967813A125F4943DE43564DC614AF /* SimpleSync.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SimpleSync.xcconfig; sourceTree = "<group>"; };
+		6D384C6CF3FB9CD0EE7D9139F57A65B0 /* Pods-SimpleSync_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SimpleSync_Example-umbrella.h"; sourceTree = "<group>"; };
+		73A5E9CFE968FD1DA42D6B8723AC7B5E /* SimpleSync-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SimpleSync-prefix.pch"; sourceTree = "<group>"; };
+		7C3540F29863A27655F8B93EA03CDD7D /* Pods-SimpleSync_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SimpleSync_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		7C4B926F5AD331FCDB0FA4D506CBDEE6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7F8B7FD99F4F265A987400FD7E157048 /* Pods-SimpleSync_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SimpleSync_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9636F95A4CA85D0EE2BB1D6B3422A5B0 /* Pods-SimpleSync_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SimpleSync_Example.modulemap"; sourceTree = "<group>"; };
+		98EFA26B3C841D69B5C85C8B6E798141 /* Pods-SimpleSync_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SimpleSync_Example-resources.sh"; sourceTree = "<group>"; };
+		9A2454EA8DF68F82CC5A757B100EEAD2 /* Pods_SimpleSync_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleSync_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0491728DB240E44BA55F411A07B837C /* Pods-SimpleSync_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SimpleSync_Example.release.xcconfig"; sourceTree = "<group>"; };
+		A081F51F81E64AC79004E3B97B9C453E /* Pods-SimpleSync_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SimpleSync_Tests-dummy.m"; sourceTree = "<group>"; };
+		A11D4B841E3E69F70019C7CD /* SimpleSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleSync.swift; sourceTree = "<group>"; };
+		A11D4B871E3E6AB60019C7CD /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		A161A813803D30FA20D5FA725A8CEA7A /* SimpleSync.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SimpleSync.modulemap; sourceTree = "<group>"; };
+		A5F9B89FA4B28364230DCFC20596B353 /* Pods-SimpleSync_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SimpleSync_Example-frameworks.sh"; sourceTree = "<group>"; };
+		AA00B62ACF76F38E491B466D980DDF7C /* SimpleSync-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SimpleSync-umbrella.h"; sourceTree = "<group>"; };
+		ADDB97B6BBB089B3DC526B942E5FA662 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF4173C1A93D562688DCBFC9F6114C5A /* Pods-SimpleSync_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SimpleSync_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		B04C51BD318D42C4DF698628F7EB2528 /* Pods-SimpleSync_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SimpleSync_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		E2BC16ECB2DC30E179B2F5DCF203BBDB /* Pods-SimpleSync_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SimpleSync_Tests-frameworks.sh"; sourceTree = "<group>"; };
+		E37231BA814F7F8DD18125C0A4E799CE /* Pods-SimpleSync_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SimpleSync_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		EF17735412E90D5F92675FF0B42D6C41 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		18C6FC2BF615061E4250BD8C6C4F1616 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4039945E397C2CC6B2896F9CF8905F1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6995657D985AC417D330E391EF04315F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F017A4E93F4DC1CFC61D8C6E6AD4BF61 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED0A034FBE7F7E715C40C32CFDD54302 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEA3D2314708ED189CDA131CCEEA2EA4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		39ADC4D0A4DFEAC7BC659764AD6C4299 /* SimpleSync */ = {
+			isa = PBXGroup;
+			children = (
+				602DADA4F5FB72FE82944D8D6ED5036F /* SimpleSync */,
+				847D5A7218A2D46B573721D516BFC8DE /* Support Files */,
+			);
+			name = SimpleSync;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		602DADA4F5FB72FE82944D8D6ED5036F /* SimpleSync */ = {
+			isa = PBXGroup;
+			children = (
+				D9F5D55B89BF0FD5A0E302491FE31E1B /* Classes */,
+			);
+			path = SimpleSync;
+			sourceTree = "<group>";
+		};
+		7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				934DD172279BA71FA19E9C114284B579 /* Development Pods */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				E029987B45C0822E5197ACFF9A2A9A32 /* Products */,
+				DFF5617E6928D90DA1E8165B30175FEE /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		847D5A7218A2D46B573721D516BFC8DE /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				EF17735412E90D5F92675FF0B42D6C41 /* Info.plist */,
+				A161A813803D30FA20D5FA725A8CEA7A /* SimpleSync.modulemap */,
+				630967813A125F4943DE43564DC614AF /* SimpleSync.xcconfig */,
+				2B26319966CDC3710FF2B3B1EE6D518E /* SimpleSync-dummy.m */,
+				73A5E9CFE968FD1DA42D6B8723AC7B5E /* SimpleSync-prefix.pch */,
+				AA00B62ACF76F38E491B466D980DDF7C /* SimpleSync-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/SimpleSync";
+			sourceTree = "<group>";
+		};
+		934DD172279BA71FA19E9C114284B579 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				39ADC4D0A4DFEAC7BC659764AD6C4299 /* SimpleSync */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		A3E295E0753F0742BC3CFE8A88DC38B6 /* Pods-SimpleSync_Example */ = {
+			isa = PBXGroup;
+			children = (
+				7C4B926F5AD331FCDB0FA4D506CBDEE6 /* Info.plist */,
+				9636F95A4CA85D0EE2BB1D6B3422A5B0 /* Pods-SimpleSync_Example.modulemap */,
+				E37231BA814F7F8DD18125C0A4E799CE /* Pods-SimpleSync_Example-acknowledgements.markdown */,
+				5EF46A693FADE9F05EEFC7B0C06BE154 /* Pods-SimpleSync_Example-acknowledgements.plist */,
+				394F1DA4B6E82619425450684109984C /* Pods-SimpleSync_Example-dummy.m */,
+				A5F9B89FA4B28364230DCFC20596B353 /* Pods-SimpleSync_Example-frameworks.sh */,
+				98EFA26B3C841D69B5C85C8B6E798141 /* Pods-SimpleSync_Example-resources.sh */,
+				6D384C6CF3FB9CD0EE7D9139F57A65B0 /* Pods-SimpleSync_Example-umbrella.h */,
+				7C3540F29863A27655F8B93EA03CDD7D /* Pods-SimpleSync_Example.debug.xcconfig */,
+				A0491728DB240E44BA55F411A07B837C /* Pods-SimpleSync_Example.release.xcconfig */,
+			);
+			name = "Pods-SimpleSync_Example";
+			path = "Target Support Files/Pods-SimpleSync_Example";
+			sourceTree = "<group>";
+		};
+		AA855397FF1385143FF18A24D0B9BE33 /* Pods-SimpleSync_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				ADDB97B6BBB089B3DC526B942E5FA662 /* Info.plist */,
+				173377A0E28E0B2FF764B5D24928DC21 /* Pods-SimpleSync_Tests.modulemap */,
+				B04C51BD318D42C4DF698628F7EB2528 /* Pods-SimpleSync_Tests-acknowledgements.markdown */,
+				AF4173C1A93D562688DCBFC9F6114C5A /* Pods-SimpleSync_Tests-acknowledgements.plist */,
+				A081F51F81E64AC79004E3B97B9C453E /* Pods-SimpleSync_Tests-dummy.m */,
+				E2BC16ECB2DC30E179B2F5DCF203BBDB /* Pods-SimpleSync_Tests-frameworks.sh */,
+				4B914DE12445011D37E49D0A27FEBF24 /* Pods-SimpleSync_Tests-resources.sh */,
+				3195BEA2F9DE47D8C446B6D828726AE5 /* Pods-SimpleSync_Tests-umbrella.h */,
+				7F8B7FD99F4F265A987400FD7E157048 /* Pods-SimpleSync_Tests.debug.xcconfig */,
+				1BB5BDC9EB65DD077204442A263EC4F1 /* Pods-SimpleSync_Tests.release.xcconfig */,
+			);
+			name = "Pods-SimpleSync_Tests";
+			path = "Target Support Files/Pods-SimpleSync_Tests";
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D9F5D55B89BF0FD5A0E302491FE31E1B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				A11D4B841E3E69F70019C7CD /* SimpleSync.swift */,
+				A11D4B871E3E6AB60019C7CD /* CoreDataManager.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		DFF5617E6928D90DA1E8165B30175FEE /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A3E295E0753F0742BC3CFE8A88DC38B6 /* Pods-SimpleSync_Example */,
+				AA855397FF1385143FF18A24D0B9BE33 /* Pods-SimpleSync_Tests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		E029987B45C0822E5197ACFF9A2A9A32 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9A2454EA8DF68F82CC5A757B100EEAD2 /* Pods_SimpleSync_Example.framework */,
+				5E95B53C98739A1085B2FF682D1A3663 /* Pods_SimpleSync_Tests.framework */,
+				3D0AED9B5C2CBFE588F26ECB67F734CC /* SimpleSync.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		0D76397BDABA064150CA8F2C7F231111 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE911BC2BF481080F8F75EAA79F2A136 /* Pods-SimpleSync_Example-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D80D285EAFAE03D102E440DCCE6E15B2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E43ED01EF0826E395AFF7818DA062324 /* SimpleSync-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC609B0A13FCEEC569DFF453CB8E4DB0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D598E55D8265F6537ABB9F066957026 /* Pods-SimpleSync_Tests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		39C6582099B957F969198396FAB107CE /* Pods-SimpleSync_Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 905F88201FB43F9D2E60734318D9C3FB /* Build configuration list for PBXNativeTarget "Pods-SimpleSync_Example" */;
+			buildPhases = (
+				F2470D225252F45EC9FF3EB3070474EF /* Sources */,
+				18C6FC2BF615061E4250BD8C6C4F1616 /* Frameworks */,
+				0D76397BDABA064150CA8F2C7F231111 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B49291CF0A57592F62812A228A6E419C /* PBXTargetDependency */,
+			);
+			name = "Pods-SimpleSync_Example";
+			productName = "Pods-SimpleSync_Example";
+			productReference = 9A2454EA8DF68F82CC5A757B100EEAD2 /* Pods_SimpleSync_Example.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		CCE53ACBFC3E9FD8D692B74FBF6D7DC0 /* Pods-SimpleSync_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 93E945B198EC17319481CC0E69D9FA47 /* Build configuration list for PBXNativeTarget "Pods-SimpleSync_Tests" */;
+			buildPhases = (
+				214AD553BBF3995E05B7FB45230BFAB8 /* Sources */,
+				6995657D985AC417D330E391EF04315F /* Frameworks */,
+				EC609B0A13FCEEC569DFF453CB8E4DB0 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-SimpleSync_Tests";
+			productName = "Pods-SimpleSync_Tests";
+			productReference = 5E95B53C98739A1085B2FF682D1A3663 /* Pods_SimpleSync_Tests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D0569F5F43507CC4D17DCA1316AFE2D3 /* SimpleSync */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D6D85D4B28A718D334226E599DCD3BE /* Build configuration list for PBXNativeTarget "SimpleSync" */;
+			buildPhases = (
+				5847A5D04B480D6B81E542023399055C /* Sources */,
+				ED0A034FBE7F7E715C40C32CFDD54302 /* Frameworks */,
+				D80D285EAFAE03D102E440DCCE6E15B2 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SimpleSync;
+			productName = SimpleSync;
+			productReference = 3D0AED9B5C2CBFE588F26ECB67F734CC /* SimpleSync.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+				TargetAttributes = {
+					39C6582099B957F969198396FAB107CE = {
+						LastSwiftMigration = 0820;
+					};
+					CCE53ACBFC3E9FD8D692B74FBF6D7DC0 = {
+						LastSwiftMigration = 0820;
+					};
+					D0569F5F43507CC4D17DCA1316AFE2D3 = {
+						LastSwiftMigration = 0820;
+					};
+				};
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = E029987B45C0822E5197ACFF9A2A9A32 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				39C6582099B957F969198396FAB107CE /* Pods-SimpleSync_Example */,
+				CCE53ACBFC3E9FD8D692B74FBF6D7DC0 /* Pods-SimpleSync_Tests */,
+				D0569F5F43507CC4D17DCA1316AFE2D3 /* SimpleSync */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		214AD553BBF3995E05B7FB45230BFAB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5921BAC21BBC9601480A6A1FD754642D /* Pods-SimpleSync_Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5847A5D04B480D6B81E542023399055C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A11D4B881E3E6AB60019C7CD /* CoreDataManager.swift in Sources */,
+				A11D4B861E3E6A450019C7CD /* SimpleSync.swift in Sources */,
+				69D2932836BF540B3431F792166EE24B /* SimpleSync-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2470D225252F45EC9FF3EB3070474EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7750DCFC92E49A53D20837BCD5988B06 /* Pods-SimpleSync_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B49291CF0A57592F62812A228A6E419C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SimpleSync;
+			target = D0569F5F43507CC4D17DCA1316AFE2D3 /* SimpleSync */;
+			targetProxy = C0F1A23E654E744508299659159B5FDA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2CAD5643B09193986363974AC09367DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 630967813A125F4943DE43564DC614AF /* SimpleSync.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SimpleSync/SimpleSync-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SimpleSync/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SimpleSync/SimpleSync.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = SimpleSync;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		599E0BBDADF0E82A3CD4DF86399202A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0491728DB240E44BA55F411A07B837C /* Pods-SimpleSync_Example.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-SimpleSync_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SimpleSync_Example/Pods-SimpleSync_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_SimpleSync_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		5B7C47AA3872874EE98CC236FD244D85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1BB5BDC9EB65DD077204442A263EC4F1 /* Pods-SimpleSync_Tests.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-SimpleSync_Tests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SimpleSync_Tests/Pods-SimpleSync_Tests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_SimpleSync_Tests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		7ADB5232F5358F9D28420B673E384F41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C3540F29863A27655F8B93EA03CDD7D /* Pods-SimpleSync_Example.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-SimpleSync_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SimpleSync_Example/Pods-SimpleSync_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_SimpleSync_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8DED8AD26D381A6ACFF202E5217EC498 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9E1E4E48AF2EAB23169E611BF694090A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		BA8AE2A0A350BC9470951AC2E598F699 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F8B7FD99F4F265A987400FD7E157048 /* Pods-SimpleSync_Tests.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-SimpleSync_Tests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SimpleSync_Tests/Pods-SimpleSync_Tests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_SimpleSync_Tests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F951B07693137B0F168FCD8740227E3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 630967813A125F4943DE43564DC614AF /* SimpleSync.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SimpleSync/SimpleSync-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SimpleSync/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SimpleSync/SimpleSync.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SimpleSync;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9E1E4E48AF2EAB23169E611BF694090A /* Debug */,
+				8DED8AD26D381A6ACFF202E5217EC498 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D6D85D4B28A718D334226E599DCD3BE /* Build configuration list for PBXNativeTarget "SimpleSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CAD5643B09193986363974AC09367DC /* Debug */,
+				F951B07693137B0F168FCD8740227E3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		905F88201FB43F9D2E60734318D9C3FB /* Build configuration list for PBXNativeTarget "Pods-SimpleSync_Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7ADB5232F5358F9D28420B673E384F41 /* Debug */,
+				599E0BBDADF0E82A3CD4DF86399202A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		93E945B198EC17319481CC0E69D9FA47 /* Build configuration list for PBXNativeTarget "Pods-SimpleSync_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA8AE2A0A350BC9470951AC2E598F699 /* Debug */,
+				5B7C47AA3872874EE98CC236FD244D85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
