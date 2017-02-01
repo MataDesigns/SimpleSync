@@ -21,6 +21,8 @@ public class SimpleSync: NSObject {
     
     /// The number of pages.
     public var pages: UInt = 1
+    
+    public var headers: HTTPHeaders?
 
     
     public var idKey: String
@@ -116,7 +118,7 @@ public class SimpleSync: NSObject {
             
             let sem = DispatchSemaphore(value: 0)
             
-            Alamofire.request("\(url)?\(pageKey)=\(1)", method: .get).responseJSON { response in
+            Alamofire.request("\(url)?\(pageKey)=\(1)", method: .get, headers: self.headers).responseJSON { response in
                 switch response.result {
                 case .success(let data):
                     print("successful")
@@ -153,7 +155,7 @@ public class SimpleSync: NSObject {
                 
                 let sem = DispatchSemaphore(value: 0)
                 
-                Alamofire.request("\(url)?\(pageKey)=\(page)", method: .get).responseJSON { response in
+                Alamofire.request("\(url)?\(pageKey)=\(page)", method: .get, headers: self.headers).responseJSON { response in
                     switch response.result {
                     case .success(let data):
                         print("successful")
