@@ -21,13 +21,15 @@ public class SimpleSync: NSObject {
     
     /// The number of pages.
     public var pages: UInt = 1
-    
+    public var usePerPage: Bool = false
+    public var perPage: Int = 1
     public var headers: HTTPHeaders?
 
     
     public var idKey: String
     public var pageKey: String
     public var pageTotalKey: String
+    public var perPageKey: String
     
     public var delegate: SimpleSyncDelegate?
     
@@ -40,7 +42,7 @@ public class SimpleSync: NSObject {
     private var url: String
     
     public init(manager: CoreDataManager, url: String, entityName: String,
-                idKey: String = "id", pageKey: String = "page", pageTotalKey: String = "total_pages") {
+                idKey: String = "id", pageKey: String = "page", pageTotalKey: String = "total_pages", perPageKey: String = "per_page", itemsPerPage: Int = 20) {
         self.url = url
         self.dataManager = manager
         self.entityName = entityName
@@ -48,6 +50,9 @@ public class SimpleSync: NSObject {
         self.idKey = idKey
         self.pageKey = pageKey
         self.pageTotalKey = pageTotalKey
+        
+        self.perPageKey = perPageKey
+        self.perPage = itemsPerPage
         
         super.init()
         self.syncThread = Thread(target: self, selector: #selector(self.syncLoop), object: nil)
@@ -101,6 +106,14 @@ public class SimpleSync: NSObject {
         
     }
     
+    public func url(_ page: UInt) -> String {
+        var url = "\(self.url)?\(self.pageKey)=\(page)"
+        if self.usePerPage {
+            url.append("&\(self.perPageKey)=\(self.perPage)")
+        }
+        return url
+    }
+    
     public func syncLoop() {
         
         do {
@@ -118,7 +131,7 @@ public class SimpleSync: NSObject {
             
             let sem = DispatchSemaphore(value: 0)
             
-            Alamofire.request("\(url)?\(pageKey)=\(1)", method: .get, headers: self.headers).responseJSON { response in
+            Alamofire.request(url(1), method: .get, headers: self.headers).responseJSON { response in
                 switch response.result {
                 case .success(let data):
                     print("successful")
@@ -155,7 +168,7 @@ public class SimpleSync: NSObject {
                 
                 let sem = DispatchSemaphore(value: 0)
                 
-                Alamofire.request("\(url)?\(pageKey)=\(page)", method: .get, headers: self.headers).responseJSON { response in
+                Alamofire.request(url(page), method: .get, headers: self.headers).responseJSON { response in
                     switch response.result {
                     case .success(let data):
                         print("successful")
