@@ -1,5 +1,7 @@
 PODS:
-  - SimpleSync (0.1.0)
+  - Alamofire (4.3.0)
+  - SimpleSync (0.1.0):
+    - Alamofire (~> 4.3)
 
 DEPENDENCIES:
   - SimpleSync (from `../`)
@@ -9,8 +11,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  SimpleSync: ded5068c4a98b65b6593565035b3c44e49ba9692
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  SimpleSync: 82dcfe0cae269cd34cf114afe0fe814658be9efb
 
 PODFILE CHECKSUM: 404f6df6ccb328ccd527d874fc491b88745af9b3
 
-COCOAPODS: 1.2.0.beta.1
+COCOAPODS: 1.2.0
