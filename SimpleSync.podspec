@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'SimpleSync'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of SimpleSync.'
+  s.summary          = 'SimpleSync is a library that can be used to sync core data values with server database using REST API.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+SimpleSync is a library that can be used to sync CoreData with server database using REST API. This makes displaying values in a UITableView very easy using NSFetchedResultsController.
                        DESC
 
   s.homepage         = 'https://github.com/NicholasMata/SimpleSync'
@@ -37,6 +37,6 @@ TODO: Add long description of the pod here.
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+  s.frameworks = 'UIKit'
   s.dependency 'Alamofire', '~> 4.3'
 end

@@ -21,30 +21,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         // Override point for customization after application launch.
-//        let dataManager = CoreDataManager.shared
-//        let managedObjectContext = dataManager.managedObjectContext
-//        
-//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
-//        
-//        do {
-//            let count = try managedObjectContext.count(for: request)
-//            if count == 0 {
-//                let person = NSEntityDescription.insertNewObject(forEntityName: "Person", into: managedObjectContext) as! Person
-//                person.firstName = "Nicholas"
-//                person.lastName = "Mata"
-//                person.id = 1
-//                person.createdOn = Date() as NSDate
-//                try dataManager.saveContext()
-//            }
-//            
-//            let manager = SimpleSync(manager: dataManager, url: "https://reqres.in/api/users", entityName: "Person")
-//            //sync.maxRetry = 1
-//            try manager.sync()
-//        } catch let error {
-//            print(error)
-//        }
-//        
+        CoreDataManager.sharedModelName = "TestModel"
         
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
+        let request = NSBatchDeleteRequest(fetchRequest: fetch)
+        do {
+            try CoreDataManager.shared.managedObjectContext.execute(request)
+        } catch {
+            print(error)
+        }
         return true
     }
     

@@ -5,11 +5,16 @@
 [![License](https://img.shields.io/cocoapods/l/SimpleSync.svg?style=flat)](http://cocoapods.org/pods/SimpleSync)
 [![Platform](https://img.shields.io/cocoapods/p/SimpleSync.svg?style=flat)](http://cocoapods.org/pods/SimpleSync)
 
+SimpleSync is a library that can be used to sync core data values with server database using REST API.
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
+- iOS 9.0+
+- Xcode 8.0+
+- Swift 3.0+
 
 ## Installation
 

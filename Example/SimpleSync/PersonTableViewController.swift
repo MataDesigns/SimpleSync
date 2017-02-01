@@ -21,12 +21,11 @@ class PersonTableViewController: UITableViewController {
     
     func initializeFetchedResultsController() {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
-        //        let departmentSort = NSSortDescriptor(key: "department.name", ascending: true)
         let lastNameSort = NSSortDescriptor(key: "lastName", ascending: true)
         request.sortDescriptors = [lastNameSort]
         
         let moc = CoreDataManager.shared.managedObjectContext
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: "lastName", cacheName: nil)
         fetchedResultsController.delegate = self
         
         do {
@@ -48,7 +47,7 @@ class PersonTableViewController: UITableViewController {
         let dataManager = CoreDataManager.shared
         
         let sync = SimpleSync(manager: dataManager, url: "https://reqres.in/api/users", entityName: "Person")
-        sync.syncDelegate = self
+        sync.delegate = self
         sync.sync()
     }
 }
@@ -58,17 +57,22 @@ extension PersonTableViewController: SimpleSyncDelegate {
         return json["data"] as! [[String: Any]]
     }
     
-    func entityCreation(_ sync: SimpleSync, json: [String : Any], entity: NSManagedObject) {
+    func syncEntity(_ sync: SimpleSync, fillEntity entity: NSManagedObject, with json: [String : Any]) {
         guard let entity = entity as? Person else {
             return
         }
-        entity.id = json["id"] as! Int64
-        entity.firstName = json["first_name"] as? String
-        entity.lastName = json["last_name"] as? String
+        let id = json["id"] as! Int64
+        SimpleSync.updateIfChanged(entity, key: "id", value: id)
+        let firstName = json["first_name"] as? String
+        SimpleSync.updateIfChanged(entity, key: "firstName", value: firstName)
+        let lastName = json["last_name"] as? String
+        SimpleSync.updateIfChanged(entity, key: "lastName", value: lastName)
     }
     
-    func didComplete(_ sync: SimpleSync) {
-        tableView.reloadData()
+    func didComplete(_ sync: SimpleSync, hadChanges: Bool) {
+        if hadChanges {
+            //tableView.reloadData()
+        }
     }
 }
 
@@ -83,7 +87,26 @@ extension PersonTableViewController {
         cell.firstNameLabel.text = selectedObject.firstName
         cell.lastNameLabel.text = selectedObject.lastName
         // Populate cell from the NSManagedObject instance
-        print("Object for configuration: \(selectedObject)")
+        // print("Object for configuration: \(selectedObject)")
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if let name = fetchedResultsController.sections?[section].name {
+            let start = name.index(name.startIndex, offsetBy: 1)
+            return name.substring(to: start).capitalized
+        }
+        return nil
+    }
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        if let sections = fetchedResultsController.sections {
+            return sections.map({ (section) -> String in
+                let name = section.name
+                let start = name.index(name.startIndex, offsetBy: 1)
+                return name.substring(to: start).capitalized
+            })
+        }
+        return nil
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -123,7 +146,8 @@ extension PersonTableViewController: NSFetchedResultsControllerDelegate {
             tableView.moveRow(at: indexPath!, to: newIndexPath!)
         }
     }
-    func controller(controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
         case .insert:
             tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
