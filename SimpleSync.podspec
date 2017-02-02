@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SimpleSync'
-  s.version          = '0.1.3'
+  s.version          = '0.1.4'
   s.summary          = 'SimpleSync is a library that can be used to sync core data values with server database using REST API.'
 
 # This description is used to generate tags and improve search results.

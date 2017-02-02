@@ -19,8 +19,12 @@ public protocol SimpleSyncDelegate {
 
 public class SimpleSync: NSObject {
     
+    
+    public var entityName: String
+    public var url: String
     public var size: Int?
     public var headers: HTTPHeaders?
+    public var predicate: NSPredicate?
     
     public var idKey: String = "id"
     
@@ -32,8 +36,6 @@ public class SimpleSync: NSObject {
     private lazy var managedObjectContext: NSManagedObjectContext = {
         return self.dataManager.managedObjectContext
     }()
-    private var entityName: String
-    private var url: String
     
     public init(manager: CoreDataManager, url: String, entityName: String) {
         self.url = url
@@ -124,6 +126,7 @@ public class SimpleSync: NSObject {
         
         do {
             let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+            request.predicate = self.predicate
             request.resultType = .dictionaryResultType
             request.returnsDistinctResults = true
             request.propertiesToFetch = [self.idKey]
