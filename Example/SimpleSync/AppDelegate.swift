@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Repo")
         var request = NSBatchDeleteRequest(fetchRequest: fetch)
         do {
-            //try CoreDataManager.shared.managedObjectContext.execute(request)
+            // try CoreDataManager.shared.managedObjectContext.execute(request)
             
             fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
             request = NSBatchDeleteRequest(fetchRequest: fetch)

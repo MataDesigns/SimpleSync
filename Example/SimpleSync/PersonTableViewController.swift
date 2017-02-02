@@ -27,7 +27,8 @@ class PersonTableViewController: UITableViewController {
         
         let moc = CoreDataManager.shared.managedObjectContext
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: "lastInitial", cacheName: nil)
-        fetchedResultsController.delegate = self
+        // For smaller data sets this is better.
+        //fetchedResultsController.delegate = self
         
         do {
             try fetchedResultsController.performFetch()
@@ -47,8 +48,8 @@ class PersonTableViewController: UITableViewController {
         initializeFetchedResultsController()
         let dataManager = CoreDataManager.shared
         
-        let sync = SimpleSync(manager: dataManager, url: "http://***REMOVED***/api/customers", entityName: "Person")
-        sync.headers = ["Authorization": "***REMOVED***"]
+        let sync = SimpleSync(manager: dataManager, url: "http://192.168.0.2/api/customers", entityName: "Person")
+        sync.headers = ["Authorization": "Bearer kyOhwUIid1AFbomxpFR16ojznRmpXu-7eUxH2uj_TIBOeD8UUxMEh3PXPP5vYTZcS3zoKkh2_thFqz8cy5yOFkUaHitaSEhpCEjQgl81xIRajOO-wQgS2eS26oGr8subcpjLlQWqSkfO82FeBXRAgkTyhlzhmYPydFcQb3HdyfEDvz-Aoc8yK4s8OQZtXNb6o0CEyi9KQqfVBUgT3g0AfblNJpAfzAZF8_9uD8wRtDBSqD9WOcnO3V7SZFo5aDkTA7R-uCePQ4JY_F1vr8fxmOugLGU5yu0aAi10_-VWBy0hsrWnfi44aCb8vBCcX8EH4jaztNIidzUqmvA3A_4OoFna_NK_az7P48MBsH_xgxrEF8g_SJR35zeEazwnBkknWwvB7OasgvAiCob6hSVr9WdBB40LujV8u4EnTH0im9qrDAzphH-sBP52eILD2nUhvUv39VhzZcdtmfI_uac87ySLwt5sHnkYTAvTMzeM9Z8NopPrUZheqtTaHizfkGJ7R8M2ih0pgw09g-0i8q2AHA"]
         sync.size = 1000
         sync.delegate = self
         sync.sync()
@@ -77,7 +78,12 @@ extension PersonTableViewController: SimpleSyncDelegate {
     
     func didComplete(_ sync: SimpleSync, hadChanges: Bool) {
         if hadChanges {
-            //tableView.reloadData()
+            do {
+                try fetchedResultsController.performFetch()
+            } catch {
+                fatalError("Failed to initialize FetchedResultsController: \(error)")
+            }
+            tableView.reloadData()
         }
     }
 }
@@ -92,8 +98,6 @@ extension PersonTableViewController {
         }
         cell.firstNameLabel.text = selectedObject.firstName
         cell.lastNameLabel.text = selectedObject.lastName
-        // Populate cell from the NSManagedObject instance
-        // print("Object for configuration: \(selectedObject)")
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -124,6 +128,8 @@ extension PersonTableViewController {
     }
 }
 
+// Set delegate in viewDidLoad to use these methods.
+// Only recommended for smaller data sets.
 extension PersonTableViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
