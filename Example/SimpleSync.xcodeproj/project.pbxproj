@@ -15,7 +15,8 @@
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		87ED33D32849A41EA6EC0214 /* Pods_SimpleSync_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E0164F238D36EA613E1959F /* Pods_SimpleSync_Tests.framework */; };
 		A119AF361E40EC9F00A90908 /* TestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A119AF331E40EB4700A90908 /* TestModel.xcdatamodeld */; };
-		A119AF381E4108AF00A90908 /* PersonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A119AF371E4108AF00A90908 /* PersonTableViewController.swift */; };
+		A119AF381E4108AF00A90908 /* ReposTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A119AF371E4108AF00A90908 /* ReposTableViewController.swift */; };
+		A1650BF21E425974009669BC /* PersonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1650BF11E425974009669BC /* PersonTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +47,8 @@
 		96DB327290DDA4150A797435 /* Pods-SimpleSync_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleSync_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleSync_Example/Pods-SimpleSync_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		9F4E6B016FDBD635D8D9F40B /* SimpleSync.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SimpleSync.podspec; path = ../SimpleSync.podspec; sourceTree = "<group>"; };
 		A119AF341E40EB4700A90908 /* TestModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestModel.xcdatamodel; sourceTree = "<group>"; };
-		A119AF371E4108AF00A90908 /* PersonTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonTableViewController.swift; sourceTree = "<group>"; };
+		A119AF371E4108AF00A90908 /* ReposTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReposTableViewController.swift; sourceTree = "<group>"; };
+		A1650BF11E425974009669BC /* PersonTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonTableViewController.swift; sourceTree = "<group>"; };
 		ABF3C376A9933672B129A52F /* Pods-SimpleSync_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleSync_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleSync_Tests/Pods-SimpleSync_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		F068F85981021787F1C246B4 /* Pods_SimpleSync_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleSync_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -96,7 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				A119AF371E4108AF00A90908 /* PersonTableViewController.swift */,
+				A119AF371E4108AF00A90908 /* ReposTableViewController.swift */,
+				A1650BF11E425974009669BC /* PersonTableViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -218,10 +221,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 72NH26LUXP;
 						LastSwiftMigration = 0820;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 72NH26LUXP;
 						LastSwiftMigration = 0820;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -364,9 +369,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1650BF21E425974009669BC /* PersonTableViewController.swift in Sources */,
 				A119AF361E40EC9F00A90908 /* TestModel.xcdatamodeld in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				A119AF381E4108AF00A90908 /* PersonTableViewController.swift in Sources */,
+				A119AF381E4108AF00A90908 /* ReposTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,7 +501,7 @@
 			baseConfigurationReference = 96DB327290DDA4150A797435 /* Pods-SimpleSync_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 72NH26LUXP;
 				INFOPLIST_FILE = SimpleSync/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -511,7 +517,7 @@
 			baseConfigurationReference = 031AFD3359CC2F9706C320A6 /* Pods-SimpleSync_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 72NH26LUXP;
 				INFOPLIST_FILE = SimpleSync/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -526,6 +532,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ABF3C376A9933672B129A52F /* Pods-SimpleSync_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 72NH26LUXP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -546,6 +553,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 259C8EB188C02A04D50F1664 /* Pods-SimpleSync_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 72NH26LUXP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

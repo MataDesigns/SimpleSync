@@ -1,8 +1,8 @@
 //
-//  PersonTableViewController.swift
+//  ReposTableViewController.swift
 //  SimpleSync
 //
-//  Created by Nicholas Mata on 2/1/17.
+//  Created by Nicholas Mata on 1/31/17.
 //  Copyright © 2017 CocoaPods. All rights reserved.
 //
 
@@ -10,23 +10,22 @@ import UIKit
 import CoreData
 import SimpleSync
 
-class PersonCell: UITableViewCell {
-    @IBOutlet weak var firstNameLabel: UILabel!
-    @IBOutlet weak var lastNameLabel: UILabel!
+class RepoCell: UITableViewCell {
+    @IBOutlet weak var repoNameLabel: UILabel!
 }
 
-class PersonTableViewController: UITableViewController {
+class ReposTableViewController: UITableViewController {
     
     var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
     
     func initializeFetchedResultsController() {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
-        let initialSort = NSSortDescriptor(key: "lastInitial", ascending: true)
-        let firstNameSort = NSSortDescriptor(key: "firstName", ascending: true)
-        request.sortDescriptors = [initialSort, firstNameSort]
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Repo")
+        let initialSort = NSSortDescriptor(key: "nameInitial", ascending: true)
+        let nameSort = NSSortDescriptor(key: "name", ascending: true)
+        request.sortDescriptors = [initialSort, nameSort]
         
         let moc = CoreDataManager.shared.managedObjectContext
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: "lastInitial", cacheName: nil)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: "nameInitial", cacheName: nil)
         fetchedResultsController.delegate = self
         
         do {
@@ -47,31 +46,26 @@ class PersonTableViewController: UITableViewController {
         initializeFetchedResultsController()
         let dataManager = CoreDataManager.shared
         
-        let sync = SimpleSync(manager: dataManager, url: "http://***REMOVED***/api/customers", entityName: "Person")
-        sync.headers = ["Authorization": "***REMOVED***"]
-        sync.size = 1000
+        let sync = SimpleSync(manager: dataManager, url: "https://api.github.com/repositories", entityName: "Repo")
         sync.delegate = self
         sync.sync()
     }
 }
 
-extension PersonTableViewController: SimpleSyncDelegate {
+extension ReposTableViewController: SimpleSyncDelegate {
     func syncEntity(_ sync: SimpleSync, fillEntity entity: NSManagedObject, with json: [String : Any]) {
-        guard let entity = entity as? Person else {
+        guard let entity = entity as? Repo else {
             return
         }
         let id = json["id"] as! Int64
         SimpleSync.updateIfChanged(entity, key: "id", value: id)
-        let firstName = json["firstName"] as? String
-        SimpleSync.updateIfChanged(entity, key: "firstName", value: firstName)
-        let lastName = json["lastName"] as? String
-        SimpleSync.updateIfChanged(entity, key: "lastName", value: lastName)
-        
-        if let lastName = lastName {
-            let lastInitial: String? = String(lastName.characters.prefix(1)).capitalized
-            SimpleSync.updateIfChanged(entity, key: "lastInitial", value: lastInitial)
+        let repoName = json["name"] as? String
+        SimpleSync.updateIfChanged(entity, key: "name", value: repoName)
+        if let rName = repoName {
+            let repoInitial: String? = String(rName.characters.prefix(1))
+            SimpleSync.updateIfChanged(entity, key: "nameInitial", value: repoInitial)
         } else {
-            entity.lastInitial = ""
+            entity.nameInitial = ""
         }
     }
     
@@ -82,16 +76,15 @@ extension PersonTableViewController: SimpleSyncDelegate {
     }
 }
 
-extension PersonTableViewController {
+extension ReposTableViewController {
     
     func configureCell(_ cell: UITableViewCell, indexPath: IndexPath) {
-        guard let selectedObject = fetchedResultsController.object(at: indexPath) as? Person else { fatalError("Unexpected Object in FetchedResultsController")
+        guard let selectedObject = fetchedResultsController.object(at: indexPath) as? Repo else { fatalError("Unexpected Object in FetchedResultsController")
         }
-        guard let cell = cell as? PersonCell else {
+        guard let cell = cell as? RepoCell else {
             fatalError("Invalid cell class")
         }
-        cell.firstNameLabel.text = selectedObject.firstName
-        cell.lastNameLabel.text = selectedObject.lastName
+        cell.repoNameLabel.text = selectedObject.name
         // Populate cell from the NSManagedObject instance
         // print("Object for configuration: \(selectedObject)")
     }
@@ -105,7 +98,7 @@ extension PersonTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PersonCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RepoCell", for: indexPath)
         // Set up the cell
         configureCell(cell, indexPath: indexPath)
         return cell
@@ -124,7 +117,7 @@ extension PersonTableViewController {
     }
 }
 
-extension PersonTableViewController: NSFetchedResultsControllerDelegate {
+extension ReposTableViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
