@@ -11,7 +11,7 @@ import CoreData
 import Alamofire
 
 public protocol SimpleSyncDelegate {
-    func processJson(_ sync: SimpleSync, json: [String: Any]) -> [[String: Any]]
+    // func processJson(_ sync: SimpleSync, json: [String: Any]) -> [[String: Any]]
     func syncEntity(_ sync: SimpleSync, fillEntity entity: NSManagedObject, with json: [String: Any])
     
     func didComplete(_ sync: SimpleSync, hadChanges: Bool)
@@ -19,20 +19,14 @@ public protocol SimpleSyncDelegate {
 
 public class SimpleSync: NSObject {
     
-    /// The number of pages.
-    public var pages: UInt = 1
-    public var usePerPage: Bool = false
-    public var perPage: Int = 1
+    public var size: Int?
     public var headers: HTTPHeaders?
-
     
-    public var idKey: String
-    public var pageKey: String
-    public var pageTotalKey: String
-    public var perPageKey: String
+    public var idKey: String = "id"
     
     public var delegate: SimpleSyncDelegate?
     
+    private let responseQueue = DispatchQueue(label: "com.simplesync.responsequeue", qos: .utility, attributes: [.concurrent])
     private var syncThread: Thread!
     private var dataManager: CoreDataManager
     private lazy var managedObjectContext: NSManagedObjectContext = {
@@ -41,18 +35,10 @@ public class SimpleSync: NSObject {
     private var entityName: String
     private var url: String
     
-    public init(manager: CoreDataManager, url: String, entityName: String,
-                idKey: String = "id", pageKey: String = "page", pageTotalKey: String = "total_pages", perPageKey: String = "per_page", itemsPerPage: Int = 20) {
+    public init(manager: CoreDataManager, url: String, entityName: String) {
         self.url = url
         self.dataManager = manager
         self.entityName = entityName
-        
-        self.idKey = idKey
-        self.pageKey = pageKey
-        self.pageTotalKey = pageTotalKey
-        
-        self.perPageKey = perPageKey
-        self.perPage = itemsPerPage
         
         super.init()
         self.syncThread = Thread(target: self, selector: #selector(self.syncLoop), object: nil)
@@ -106,12 +92,32 @@ public class SimpleSync: NSObject {
         
     }
     
-    public func url(_ page: UInt) -> String {
-        var url = "\(self.url)?\(self.pageKey)=\(page)"
-        if self.usePerPage {
-            url.append("&\(self.perPageKey)=\(self.perPage)")
+    func parseLink(header: String) -> [String: String] {
+        
+        let components = header.components(separatedBy: ",")
+        var links = [String: String]()
+        
+        for component in components {
+            var section = component.components(separatedBy: ";")
+            if section.count != 2 {
+                continue
+            }
+            do {
+                let urlRegex = try NSRegularExpression(pattern: "\\<(.*)\\>")
+                var fullUrl = section[0]
+                var url = urlRegex.stringByReplacingMatches(in: fullUrl, range: NSRange(location: 0, length: fullUrl.characters.count), withTemplate: "$1").trimmingCharacters(in: .whitespacesAndNewlines)
+                
+                
+                let nameRegex = try NSRegularExpression(pattern: "rel\\=\\\"(.*)\\\"")
+                var fullName = section[1]
+                var name = nameRegex.stringByReplacingMatches(in: fullName, range: NSRange(location: 0, length: fullName.characters.count), withTemplate: "$1").trimmingCharacters(in: .whitespacesAndNewlines)
+                links[name] = url
+            } catch  {
+                continue
+            }
         }
-        return url
+        
+        return links
     }
     
     public func syncLoop() {
@@ -126,70 +132,49 @@ public class SimpleSync: NSObject {
             let existingIds = result.map { (object) -> Any in
                 return object[self.idKey] as Any
             }
-            
+
             var serverIds = [Any]()
             
-            let sem = DispatchSemaphore(value: 0)
+            var url: String? = self.url
+            if let size = self.size {
+                url?.append("?size=\(size)")
+            }
             
-            Alamofire.request(url(1), method: .get, headers: self.headers).responseJSON { response in
-                switch response.result {
-                case .success(let data):
-                    print("successful")
-                    if let json = data as? [String: Any] {
-                        guard let pageTotal = json[self.pageTotalKey] as? UInt else {
-                            return
-                        }
-                        self.pages = pageTotal
-                        guard let jobjects = self.delegate?.processJson(self, json: json) else {
-                            print("processJson delegate is needed could not json was not an array.")
-                            return
+            var count = 0
+            
+            while url != nil {
+                let sem = DispatchSemaphore(value: 0)
+                
+                guard let requestUrl = url else {
+                    break;
+                }
+                
+                let request = Alamofire.request(requestUrl, method: .get, headers: self.headers)
+                
+                request.responseJSON(queue: self.responseQueue) { response in
+                    switch response.result {
+                    case .success(let data):
+                        
+                        guard let json = data as? [[String: Any]] else {
+                            break
                         }
                         
-                        let callIds = jobjects.map({ (jObject) -> Any in
+                        let callIds = json.map({ (jObject) -> Any in
                             return jObject[self.idKey]
                         })
                         
                         serverIds.append(contentsOf: callIds)
+                        self.processObjects(json, ids: existingIds)
                         
-                        
-                        self.processObjects(jobjects, ids: existingIds)
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-                sem.signal()
-            }
-            
-            sem.wait()
-            
-            
-            for page in 2...self.pages {
-                print("fetching page \(page)")
-                
-                let sem = DispatchSemaphore(value: 0)
-                
-                Alamofire.request(url(page), method: .get, headers: self.headers).responseJSON { response in
-                    switch response.result {
-                    case .success(let data):
-                        print("successful")
-                        if let json = data as? [String: Any] {
-                            guard let pageTotal = json[self.pageTotalKey] as? UInt else {
-                                return
-                            }
-                            self.pages = pageTotal
-                            guard let jobjects = self.delegate?.processJson(self, json: json) else {
-                                print("processJson delegate is needed could not json was not an array.")
-                                return
-                            }
-                            
-                            let callIds = jobjects.map({ (jObject) -> Any in
-                                return jObject[self.idKey]
-                            })
-                            
-                            serverIds.append(contentsOf: callIds)
-                            
-                            
-                            self.processObjects(jobjects, ids: existingIds)
+                        guard let response = response.response else {
+                            break;
+                        }
+                        guard let linkHeader = response.allHeaderFields["Link"] as? String else {
+                            break;
+                        }
+                        let links = self.parseLink(header: linkHeader)
+                        if let next = links["next"] {
+                            url = next
                         }
                     case .failure(let error):
                         print(error)
@@ -197,12 +182,16 @@ public class SimpleSync: NSObject {
                     sem.signal()
                 }
                 
+                url = nil
                 sem.wait()
-                print("total pages: \(self.pages)")
+                print("next url: \(url)")
+                count += 1
             }
             
             if existingIds.first is Int {
-                let removed = Array(Set(existingIds as! [Int]).subtracting(serverIds as! [Int]))
+                let server = serverIds as! [Int]
+                let coreData = existingIds as! [Int]
+                let removed = Array(Set(coreData).subtracting(server))
                 print("removed \(removed)")
             }
             
@@ -215,9 +204,9 @@ public class SimpleSync: NSObject {
                 print(error)
             }
             
-            self.delegate?.didComplete(self, hadChanges: hasChanges)
-            
-            
+            DispatchQueue.main.async {
+                self.delegate?.didComplete(self, hadChanges: hasChanges)
+            }
         } catch {
             print("invalid key name: \(self.idKey) for entity named: \(self.entityName)")
         }
