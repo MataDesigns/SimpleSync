@@ -46,34 +46,68 @@ class ReposTableViewController: UITableViewController {
         initializeFetchedResultsController()
         let dataManager = CoreDataManager.shared
         
-        let sync = SimpleSync(manager: dataManager, url: "https://api.github.com/repositories", entityName: "Repo")
+        let syncInfo = EntitySyncInfo(dataManager: dataManager,  entityName: "Repo")
+        let url = "https://api.github.com/users"
+        let sync = SimpleSync(startUrl: url, info: syncInfo)
         sync.delegate = self
-        sync.sync()
+        sync.start()
     }
 }
 
 extension ReposTableViewController: SimpleSyncDelegate {
-    func syncEntity(_ sync: SimpleSync, fillEntity entity: NSManagedObject, with json: [String : Any]) {
-        guard let entity = entity as? Repo else {
-            return
-        }
-        let id = json["id"] as! Int64
-        SimpleSync.updateIfChanged(entity, key: "id", value: id)
-        let repoName = json["name"] as? String
-        SimpleSync.updateIfChanged(entity, key: "name", value: repoName)
-        if let rName = repoName {
-            let repoInitial: String? = String(rName.characters.prefix(1))
-            SimpleSync.updateIfChanged(entity, key: "nameInitial", value: repoInitial)
-        } else {
-            entity.nameInitial = ""
+    func simpleSync(_ sync: SimpleSync, fill entity: NSManagedObject, with json: [String : Any]) {
+        self.fill(repo: entity, with: json)
+    }
+    
+    func simpleSync(_ sync: SimpleSync, new entity: NSManagedObject, with json: [String : Any]) {
+        self.fill(repo: entity, with: json)
+    }
+    
+    func simpleSync(finished sync: SimpleSync) {
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("Failed to initialize FetchedResultsController: \(error)")
         }
     }
     
-    func didComplete(_ sync: SimpleSync, hadChanges: Bool) {
-        if hadChanges {
-            //tableView.reloadData()
+    private func fill(repo: NSManagedObject, with json: [String:Any]) {
+        guard let repo = repo as? Repo else {
+            return
+        }
+        let id = json["id"] as! Int64
+        SimpleSync.updateIfChanged(repo, key: "id", value: id)
+        let repoName = json["name"] as? String
+        SimpleSync.updateIfChanged(repo, key: "name", value: repoName)
+        if let rName = repoName {
+            let repoInitial: String? = String(rName.first!).uppercased()
+            SimpleSync.updateIfChanged(repo, key: "nameInitial", value: repoInitial)
+        } else {
+            repo.nameInitial = ""
         }
     }
+    
+//    func syncEntity(_ sync: SimpleSync, fillEntity entity: NSManagedObject, with json: [String : Any]) {
+//        guard let entity = entity as? Repo else {
+//            return
+//        }
+//        let id = json["id"] as! Int64
+//        SimpleSync.updateIfChanged(entity, key: "id", value: id)
+//        let repoName = json["name"] as? String
+//        SimpleSync.updateIfChanged(entity, key: "name", value: repoName)
+//        if let rName = repoName {
+//            let repoInitial: String? = String(rName.characters.prefix(1))
+//            SimpleSync.updateIfChanged(entity, key: "nameInitial", value: repoInitial)
+//        } else {
+//            entity.nameInitial = ""
+//        }
+//    }
+//
+//    func didComplete(_ sync: SimpleSync, hadChanges: Bool) {
+//        if hadChanges {
+//            //tableView.reloadData()
+//        }
+//    }
 }
 
 extension ReposTableViewController {

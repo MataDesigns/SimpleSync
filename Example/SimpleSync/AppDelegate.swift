@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
             request = NSBatchDeleteRequest(fetchRequest: fetch)
-            // try CoreDataManager.shared.managedObjectContext.execute(request)
+//             try CoreDataManager.shared.managedObjectContext.execute(request)
         } catch {
             print(error)
         }

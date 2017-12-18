@@ -17,18 +17,21 @@ class PersonCell: UITableViewCell {
 
 class PersonTableViewController: UITableViewController {
     
+    var startedSyncOn: Date?
+    var endedSyncOn: Date?
     var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
     
     func initializeFetchedResultsController() {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
         let initialSort = NSSortDescriptor(key: "lastInitial", ascending: true)
+        let lastNameSort = NSSortDescriptor(key: "lastName", ascending: true)
         let firstNameSort = NSSortDescriptor(key: "firstName", ascending: true)
-        request.sortDescriptors = [initialSort, firstNameSort]
+        request.sortDescriptors = [initialSort, lastNameSort, firstNameSort]
         
         let moc = CoreDataManager.shared.managedObjectContext
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: "lastInitial", cacheName: nil)
         // For smaller data sets this is better.
-        //fetchedResultsController.delegate = self
+        fetchedResultsController.delegate = self
         
         do {
             try fetchedResultsController.performFetch()
@@ -48,43 +51,67 @@ class PersonTableViewController: UITableViewController {
         initializeFetchedResultsController()
         let dataManager = CoreDataManager.shared
         
-        let sync = SimpleSync(manager: dataManager, url: "http://192.168.0.2/api/customers", entityName: "Person")
-        sync.size = 1000
+        let syncInfo = EntitySyncInfo(dataManager: dataManager,  entityName: "Person")
+        let url = "http://192.168.2.2/api/customers"
+        let sync = SimpleSync(startUrl: url, info: syncInfo)
+        // If endpoint is secure add Authorization Header
+        sync.headers = ["Authorization": "Bearer INSERTBEARERTOKENHERE"]
         sync.delegate = self
-        sync.sync()
+        sync.start()
+        startedSyncOn = Date()
     }
 }
 
 extension PersonTableViewController: SimpleSyncDelegate {
-    func syncEntity(_ sync: SimpleSync, fillEntity entity: NSManagedObject, with json: [String : Any]) {
-        guard let entity = entity as? Person else {
+    func simpleSync(_ sync: SimpleSync, fill entity: NSManagedObject, with json: [String : Any]) {
+        self.fill(person: entity, with: json)
+    }
+    
+    func simpleSync(_ sync: SimpleSync, new entity: NSManagedObject, with json: [String : Any]) {
+        self.fill(person: entity, with: json)
+    }
+    
+    private func fill(person: NSManagedObject, with json: [String:Any]) {
+        guard let person = person as? Person else {
             return
         }
         let id = json["id"] as! Int64
-        SimpleSync.updateIfChanged(entity, key: "id", value: id)
+        SimpleSync.updateIfChanged(person, key: "id", value: id)
         let firstName = json["firstName"] as? String
-        SimpleSync.updateIfChanged(entity, key: "firstName", value: firstName)
+        SimpleSync.updateIfChanged(person, key: "firstName", value: firstName)
         let lastName = json["lastName"] as? String
-        SimpleSync.updateIfChanged(entity, key: "lastName", value: lastName)
-        
-        if let lastName = lastName {
-            let lastInitial: String? = String(lastName.characters.prefix(1)).capitalized
-            SimpleSync.updateIfChanged(entity, key: "lastInitial", value: lastInitial)
+        SimpleSync.updateIfChanged(person, key: "lastName", value: lastName)
+
+        if let lastNameInitial = lastName?.first {
+            var lastInitial: String? = String(lastNameInitial).capitalized
+            let isLetter = lastInitial?.rangeOfCharacter(from: CharacterSet.uppercaseLetters.inverted) == nil
+            if !isLetter {
+                if lastName!.count == 0 {
+                    if let firstNameInitial = firstName?.first {
+                        lastInitial = String(firstNameInitial).capitalized
+                    } else {
+                        lastInitial = "#"
+                    }
+                } else {
+                    lastInitial = "#"
+                }
+            }
+            SimpleSync.updateIfChanged(person, key: "lastInitial", value: lastInitial)
         } else {
-            entity.lastInitial = ""
+            person.lastInitial = String(person.firstName?.first ?? "#").capitalized
         }
     }
     
-    func didComplete(_ sync: SimpleSync, hadChanges: Bool) {
-        if hadChanges {
-            do {
-                try fetchedResultsController.performFetch()
-            } catch {
-                fatalError("Failed to initialize FetchedResultsController: \(error)")
-            }
-            tableView.reloadData()
+    func simpleSync(finished sync: SimpleSync) {
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("Failed to initialize FetchedResultsController: \(error)")
         }
+        endedSyncOn = Date()
+        print("Sync took: \(endedSyncOn!.timeIntervalSince(startedSyncOn!)) secs")
     }
+    
 }
 
 extension PersonTableViewController {
@@ -95,8 +122,15 @@ extension PersonTableViewController {
         guard let cell = cell as? PersonCell else {
             fatalError("Invalid cell class")
         }
-        cell.firstNameLabel.text = selectedObject.firstName
-        cell.lastNameLabel.text = selectedObject.lastName
+        if selectedObject.firstName == nil || selectedObject.firstName!.isEmpty {
+        }
+        if selectedObject.lastName == nil || selectedObject.lastName!.isEmpty {
+            cell.firstNameLabel.font = UIFont.boldSystemFont(ofSize: cell.firstNameLabel.font.pointSize)
+        } else {
+            cell.firstNameLabel.font = UIFont.systemFont(ofSize: cell.firstNameLabel.font.pointSize)
+        }
+        cell.firstNameLabel.text = selectedObject.firstName?.capitalized
+        cell.lastNameLabel.text = selectedObject.lastName?.capitalized
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
