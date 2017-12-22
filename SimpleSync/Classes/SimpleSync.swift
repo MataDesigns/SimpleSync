@@ -46,7 +46,6 @@ public class EntitySyncInfo {
 public protocol EntitySyncDelegate {
     func add(entity: NSManagedObject, with json: [String: Any])
     func update(entity: NSManagedObject, with json: [String: Any])
-    func entityOperation(finished operation: EntitySyncOperation)
 }
 
 public class EntitySyncOperation: Operation {
@@ -108,7 +107,7 @@ public class EntitySyncOperation: Operation {
                 return
             }
         }
-        self.delegate?.entityOperation(finished: self)
+        print("Entity Operation \(self.name ?? "") finished")
     }
     
 }
@@ -176,7 +175,7 @@ public class NetworkSyncOperation: Operation {
                             return
                         }
                     }
-                    print("Received Header: \(response.response?.allHeaderFields ?? [AnyHashable:Any]())")
+//                    print("Received Header: \(response.response?.allHeaderFields ?? [AnyHashable:Any]())")
                     if let linkHeader = response.response?.allHeaderFields["Link"] as? String  {
                         let links = self.parseLink(header: linkHeader)
                         if let next = links["next"] {
@@ -184,7 +183,7 @@ public class NetworkSyncOperation: Operation {
                         } else {
                             self.delegate?.networkOperation(finished: self)
                         }
-                    }else {
+                    } else {
                         self.delegate?.networkOperation(finished: self)
                     }
                 }
@@ -207,18 +206,20 @@ public class NetworkSyncOperation: Operation {
                 sem.signal()
             }
             sem.wait()
+            print("Network Operation \(self.name ?? "") finished")
         }
     }
 }
 
-public protocol SimpleSyncDelegate {
+@objc public protocol SimpleSyncDelegate {
     func simpleSync(_ sync: SimpleSync, fill entity: NSManagedObject, with json: [String: Any])
     func simpleSync(_ sync: SimpleSync, new entity: NSManagedObject, with json: [String: Any])
     func simpleSync(finished sync: SimpleSync)
+    @objc optional func simpleSync(_ sync: SimpleSync, finishedNeworkQueue queue: OperationQueue)
+    @objc optional func simpleSync(_ sync: SimpleSync, finishedEntityQueue queue: OperationQueue)
 }
 
 public class SimpleSync: NSObject, NetworkSyncDelegate, EntitySyncDelegate {
-    
     
     public var url: String
     public var syncInfo: EntitySyncInfo
@@ -235,6 +236,8 @@ public class SimpleSync: NSObject, NetworkSyncDelegate, EntitySyncDelegate {
     
     private var networkRequestFinished = false
     
+    private var retrievedIds = [Any]()
+    
     public init(startUrl: String, info: EntitySyncInfo) {
         self.url = startUrl
         self.syncInfo = info
@@ -244,6 +247,48 @@ public class SimpleSync: NSObject, NetworkSyncDelegate, EntitySyncDelegate {
         
         self.entityOperationQueue = OperationQueue()
         self.entityOperationQueue.name = "SimpleSyncEntityQueue"
+        
+        super.init()
+        addObserver(self, forKeyPath: #keyPath(networkOperationQueue.operationCount), options: [.old, .new], context: nil)
+        addObserver(self, forKeyPath: #keyPath(entityOperationQueue.operationCount), options: [.old, .new], context: nil)
+    }
+    deinit {
+        removeObserver(self, forKeyPath: #keyPath(networkOperationQueue.operationCount))
+        removeObserver(self, forKeyPath: #keyPath(entityOperationQueue.operationCount))
+    }
+    
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard let keyPath = keyPath else { return  }
+        switch keyPath {
+        case #keyPath(networkOperationQueue.operationCount):
+            if(networkOperationQueue.operationCount == 0) {
+                print("All network operations finished")
+                self.delegate?.simpleSync?(self, finishedNeworkQueue: networkOperationQueue)
+            }
+        case #keyPath(entityOperationQueue.operationCount):
+            if(entityOperationQueue.operationCount == 0 && networkOperationQueue.operationCount == 0) {
+                print("\n\n\nAll entity operations finished")
+                self.delegate?.simpleSync?(self, finishedEntityQueue: entityOperationQueue)
+                finishedProcessing()
+            }
+        default:
+            break;
+        }
+    }
+    
+    private func finishedProcessing() {
+        var removing: [Any]!
+        if let storedIds = self.syncInfo.ids as? [String] {
+            let retrievedIds = self.retrievedIds as! [String]
+            removing = Array(Set(retrievedIds).subtracting(Set(storedIds)))
+        } else if let storedIds = self.syncInfo.ids as? [Int] {
+           let retrievedIds = self.retrievedIds as! [Int]
+            removing = Array(Set(retrievedIds).subtracting(Set(storedIds)))
+        }
+        
+        print(removing)
+        
+        self.delegate?.simpleSync(finished: self)
     }
     
     public func start() {
@@ -279,17 +324,24 @@ public class SimpleSync: NSObject, NetworkSyncDelegate, EntitySyncDelegate {
     
     // EntitySyncDelegate
     public func add(entity: NSManagedObject, with json: [String : Any]) {
-        // print("Adding \(json[self.syncInfo.idKey] ?? "")")
         self.delegate?.simpleSync(self, new: entity, with: json)
+        addToRetrieved(id: json[self.syncInfo.idKey])
     }
     
     public func update(entity: NSManagedObject, with json: [String : Any]) {
-        // print("Updating \(json[self.syncInfo.idKey] ?? "")")
         self.delegate?.simpleSync(self, fill: entity, with: json)
+        addToRetrieved(id: json[self.syncInfo.idKey])
+    }
+    
+    private func addToRetrieved(id: Any?) {
+        if let id = id {
+            self.retrievedIds.append(id)
+        }
     }
     
     // NetworkSyncDelegate
     public func networkOperation(_ operation: NetworkSyncOperation, receivedUrl url: String) {
+//        print("Received next url \(url)")
         addToNetworkQueue(url: url)
     }
     
@@ -301,12 +353,6 @@ public class SimpleSync: NSObject, NetworkSyncDelegate, EntitySyncDelegate {
     public func networkOperation(finished operation: NetworkSyncOperation) {
         // print("Finished on operation \(operation.name ?? "")")
         networkRequestFinished = true
-    }
-    
-    public func entityOperation(finished operation: EntitySyncOperation) {
-        if entityOperationCounter == networkOperationCounter && networkRequestFinished {
-            self.delegate?.simpleSync(finished: self)
-        }
     }
     
     
