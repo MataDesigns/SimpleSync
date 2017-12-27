@@ -147,6 +147,9 @@
                             <outlet property="delegate" destination="Pea-3s-5em" id="CAo-E3-6no"/>
                         </connections>
                     </tableView>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="ZA9-1T-cxK">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Pq-fk-f6k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

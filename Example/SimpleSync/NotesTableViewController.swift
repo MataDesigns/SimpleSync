@@ -20,6 +20,8 @@ class NotesTableViewController: UITableViewController {
     var endedSyncOn: Date?
     var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
     
+    var sync: SimpleSync!
+    
     func initializeFetchedResultsController() {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
         let initialSort = NSSortDescriptor(key: "id", ascending: true)
@@ -50,10 +52,17 @@ class NotesTableViewController: UITableViewController {
         
         let syncInfo = EntitySyncInfo(dataManager: dataManager,  entityName: "Note")
         let url = "http://192.168.2.2/api/notes"
-        let sync = SimpleSync(startUrl: url, info: syncInfo)
+        sync = SimpleSync(startUrl: url, info: syncInfo)
         // If endpoint is secure add Authorization Header
         sync.headers = ["Authorization": "Bearer wLcBEQC7j24K7Nescbgzf96Q-1sRLw6TtCkm0HiaLnQVPFQSV6IJ2V30_YgZfcnc9CR8tuzMwBric1bzYze6nqduDv58Y9Nx_s1RQJkhYLIGagUGlVGdDCASdqcEbogEfHPeHTZ9V9KFGdfPDTYs2kfLsw44qZ9a-R16wd91LoBHR-FwnrsJnaED4eL1MaGszBaJtHZmk3i4tBOMV-GMevmk6SrL5TUgfKs_hDksNty9KgsTyfbnvo1RaAxLt1utESvLQDNsy5ieIt5ae7aB37RS3k17cQUKwmhMFTOn2HzRnmX2OMmrohRGllpBZMsdlRV8SUrzkV65zb9ro6pWPkreULztoVhHwLbtLrz0kMr3E0zj0KLeTyIB31M6q6F_GHdLESgQ_FWWs4Q4HEexJYTgOWXYe7p1JBCgdndbs94jDDBNe8w9PU_nmIlApXm1ldigPLxlgELA4RGrJ6fY9eHtePQYbHR8VBseIWHWEmzfu578thGwASnZdMf9dOvDGFXZVZsYgGdBMksoM71DfKdwWafl_g3M_y8fDHH2Sn7Dgxb3gvHPUjQkV_YwS_sLTHQ7CYti5cMzdS6FbKcd7w"]
         sync.delegate = self
+        sync.start()
+        startedSyncOn = Date()
+        
+        self.refreshControl?.addTarget(self, action: #selector(self.startSync), for: .valueChanged)
+    }
+    
+    @objc func startSync() {
         sync.start()
         startedSyncOn = Date()
     }
@@ -78,6 +87,24 @@ extension NotesTableViewController: SimpleSyncDelegate {
         SimpleSync.updateIfChanged(note, key: "body", value: body)
     }
     
+    func simpleSync(_ sync: SimpleSync, needsRemoval entity: NSManagedObject) {
+        guard let note = entity as? Note else {
+            return
+        }
+        let noteId = note.id
+        print("\(noteId) needs removal")
+
+        CoreDataManager.shared.managedObjectContext.delete(note)
+        do {
+            try CoreDataManager.shared.managedObjectContext.save()
+        } catch let error {
+            print(error)
+        }
+       
+
+        print("\(noteId) was removed")
+    }
+    
     func simpleSync(finished sync: SimpleSync) {
         do {
             try fetchedResultsController.performFetch()
@@ -86,6 +113,9 @@ extension NotesTableViewController: SimpleSyncDelegate {
         }
         endedSyncOn = Date()
         print("Sync took: \(endedSyncOn!.timeIntervalSince(startedSyncOn!)) secs")
+        DispatchQueue.main.async {
+            self.refreshControl?.endRefreshing()
+        }
     }
     
 }

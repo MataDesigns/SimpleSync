@@ -214,6 +214,7 @@ public class NetworkSyncOperation: Operation {
 @objc public protocol SimpleSyncDelegate {
     func simpleSync(_ sync: SimpleSync, fill entity: NSManagedObject, with json: [String: Any])
     func simpleSync(_ sync: SimpleSync, new entity: NSManagedObject, with json: [String: Any])
+    @objc optional func simpleSync(_ sync: SimpleSync, needsRemoval entity: NSManagedObject)
     func simpleSync(finished sync: SimpleSync)
     @objc optional func simpleSync(_ sync: SimpleSync, finishedNeworkQueue queue: OperationQueue)
     @objc optional func simpleSync(_ sync: SimpleSync, finishedEntityQueue queue: OperationQueue)
@@ -228,8 +229,8 @@ public class SimpleSync: NSObject, NetworkSyncDelegate, EntitySyncDelegate {
     
     public var delegate: SimpleSyncDelegate?
     
-    public var networkOperationQueue: OperationQueue
-    public var entityOperationQueue: OperationQueue
+    @objc public var networkOperationQueue: OperationQueue
+    @objc public var entityOperationQueue: OperationQueue
     
     private var networkOperationCounter = 1
     private var entityOperationCounter = 1
@@ -276,17 +277,40 @@ public class SimpleSync: NSObject, NetworkSyncDelegate, EntitySyncDelegate {
         }
     }
     
+    private func fetchEntity(context: NSManagedObjectContext, withId id: Any) -> NSManagedObject? {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.syncInfo.entityName)
+        if let stringId = id as? String {
+            let predicate = NSPredicate(format: "\(self.syncInfo.idKey) == %@", stringId)
+            request.predicate = predicate
+        } else if let intId = id as? Int {
+            let predicate = NSPredicate(format: "\(self.syncInfo.idKey) == %d", intId)
+            request.predicate = predicate
+        }
+        request.fetchLimit = 1
+        do {
+            let result = try context.fetch(request)
+            return (result.first as? NSManagedObject)
+        } catch {
+            return nil
+        }
+    }
+    
     private func finishedProcessing() {
         var removing: [Any]!
         if let storedIds = self.syncInfo.ids as? [String] {
             let retrievedIds = self.retrievedIds as! [String]
-            removing = Array(Set(retrievedIds).subtracting(Set(storedIds)))
+            removing = Array(Set(storedIds).subtracting(Set(retrievedIds)))
         } else if let storedIds = self.syncInfo.ids as? [Int] {
            let retrievedIds = self.retrievedIds as! [Int]
-            removing = Array(Set(retrievedIds).subtracting(Set(storedIds)))
+            removing = Array(Set(storedIds).subtracting(Set(retrievedIds)))
         }
         
-        print(removing)
+        for var removeId in removing {
+            if let removeItem = fetchEntity(context: self.syncInfo.managedObjectContext, withId: removeId) {
+                self.delegate?.simpleSync?(self, needsRemoval: removeItem)
+            }
+            
+        }
         
         self.delegate?.simpleSync(finished: self)
     }
@@ -297,6 +321,7 @@ public class SimpleSync: NSObject, NetworkSyncDelegate, EntitySyncDelegate {
         }
         networkOperationCounter = 1
         entityOperationCounter = 1
+        self.retrievedIds.removeAll()
         self.networkOperationQueue.cancelAllOperations()
         addToNetworkQueue(url: url)
     }
@@ -341,7 +366,7 @@ public class SimpleSync: NSObject, NetworkSyncDelegate, EntitySyncDelegate {
     
     // NetworkSyncDelegate
     public func networkOperation(_ operation: NetworkSyncOperation, receivedUrl url: String) {
-//        print("Received next url \(url)")
+        //print("Received next url \(url)")
         addToNetworkQueue(url: url)
     }
     
