@@ -52,10 +52,10 @@ class PersonTableViewController: UITableViewController {
         let dataManager = CoreDataManager.shared
         
         let syncInfo = EntitySyncInfo(dataManager: dataManager,  entityName: "Person")
-        let url = "http://192.168.2.2/api/v3/0e8411005e6047dbbbf51ea70e101e6f/customers"
+        let url = "http://192.168.2.2/api/v3/customers"
         let sync = SimpleSync(startUrl: url, info: syncInfo)
         // If endpoint is secure add Authorization Header
-        sync.headers = ["Authorization": "Bearer wLcBEQC7j24K7Nescbgzf96Q-1sRLw6TtCkm0HiaLnQVPFQSV6IJ2V30_YgZfcnc9CR8tuzMwBric1bzYze6nqduDv58Y9Nx_s1RQJkhYLIGagUGlVGdDCASdqcEbogEfHPeHTZ9V9KFGdfPDTYs2kfLsw44qZ9a-R16wd91LoBHR-FwnrsJnaED4eL1MaGszBaJtHZmk3i4tBOMV-GMevmk6SrL5TUgfKs_hDksNty9KgsTyfbnvo1RaAxLt1utESvLQDNsy5ieIt5ae7aB37RS3k17cQUKwmhMFTOn2HzRnmX2OMmrohRGllpBZMsdlRV8SUrzkV65zb9ro6pWPkreULztoVhHwLbtLrz0kMr3E0zj0KLeTyIB31M6q6F_GHdLESgQ_FWWs4Q4HEexJYTgOWXYe7p1JBCgdndbs94jDDBNe8w9PU_nmIlApXm1ldigPLxlgELA4RGrJ6fY9eHtePQYbHR8VBseIWHWEmzfu578thGwASnZdMf9dOvDGFXZVZsYgGdBMksoM71DfKdwWafl_g3M_y8fDHH2Sn7Dgxb3gvHPUjQkV_YwS_sLTHQ7CYti5cMzdS6FbKcd7w"]
+        sync.headers = ["Authorization": "Bearer INSERTTOKENHERE"]
         sync.delegate = self
         sync.start()
         startedSyncOn = Date()
