@@ -305,7 +305,7 @@ public class SimpleSync: NSObject, NetworkSyncDelegate, EntitySyncDelegate {
             removing = Array(Set(storedIds).subtracting(Set(retrievedIds)))
         }
         
-        for var removeId in removing {
+        for removeId in removing {
             if let removeItem = fetchEntity(context: self.syncInfo.managedObjectContext, withId: removeId) {
                 self.delegate?.simpleSync?(self, needsRemoval: removeItem)
             }

@@ -23,17 +23,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         CoreDataManager.sharedModelName = "TestModel"
         
-        var fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Repo")
-        var request = NSBatchDeleteRequest(fetchRequest: fetch)
-        do {
-            // try CoreDataManager.shared.managedObjectContext.execute(request)
-            
-            fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
-            request = NSBatchDeleteRequest(fetchRequest: fetch)
-//             try CoreDataManager.shared.managedObjectContext.execute(request)
-        } catch {
-            print(error)
-        }
+//        var fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Repo")
+//        let request = NSBatchDeleteRequest(fetchRequest: fetch)
+//        do {
+//            // try CoreDataManager.shared.managedObjectContext.execute(request)
+//
+////            fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
+////            request = NSBatchDeleteRequest(fetchRequest: fetch)
+////             try CoreDataManager.shared.managedObjectContext.execute(request)
+//        } catch {
+//            print(error)
+//        }
         return true
     }
     
