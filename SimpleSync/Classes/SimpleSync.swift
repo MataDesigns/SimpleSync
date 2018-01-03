@@ -238,6 +238,8 @@ public class SimpleSync: NSObject, NetworkSyncDelegate, EntitySyncDelegate {
     private var networkRequestFinished = false
     
     private var retrievedIds = [Any]()
+    let retrievalQueue = DispatchQueue(label: "SimpleRetrievalQueue")
+
     
     public init(startUrl: String, info: EntitySyncInfo) {
         self.url = startUrl
@@ -360,7 +362,9 @@ public class SimpleSync: NSObject, NetworkSyncDelegate, EntitySyncDelegate {
     
     private func addToRetrieved(id: Any?) {
         if let id = id {
-            self.retrievedIds.append(id)
+            retrievalQueue.sync {
+                self.retrievedIds.append(id)
+            }
         }
     }
     
